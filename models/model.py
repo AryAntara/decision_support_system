@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-import pandas as pd
 import copy
 
 class Validation: 
@@ -45,7 +44,4 @@ class Model(Validation):
     
     def get_data(self) -> dict: 
         return copy.deepcopy(self.data)
-
-    
-
    

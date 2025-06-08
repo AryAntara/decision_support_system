@@ -1,6 +1,5 @@
 from methods import method
 from models import criteria as ctr, alternative as altr
-import pandas as pd, tabulate
 import math
 
 
@@ -8,9 +7,7 @@ class Electre(method.DecisionMethod):
     criteria: ctr.CriteriaModel = []
     alternatives: altr.AlternativeModel = []
 
-    def __init__(
-        self, alternative: altr.AlternativeModel, options
-    ):
+    def __init__(self, alternative: altr.AlternativeModel, options):
         self.criteria = alternative.criteria
         self.alternatives = alternative
         self.set_opts(options)
@@ -20,13 +17,13 @@ class Electre(method.DecisionMethod):
         self.print("Calculating ELECTRE")
 
         # add divider
-        table_with_divider = self._add_devider()        
+        table_with_divider = self._add_devider()
 
         self.print("\nTable With Divider")
         self.print(table_with_divider)
 
         # normalize
-        normalized_table = self._normalize_table(table_with_divider)        
+        normalized_table = self._normalize_table(table_with_divider)
         self.print("\nNormalized Table")
         self.print(normalized_table)
 
@@ -80,7 +77,9 @@ class Electre(method.DecisionMethod):
                 else:
                     matrix_F[idx][j] = 0
 
-                if v_d >= treshold_d:
+                if i == j:
+                    matrix_G[idx][j] = 0
+                elif v_d < treshold_d:
                     matrix_G[idx][j] = 1
                 else:
                     matrix_G[idx][j] = 0
@@ -90,19 +89,19 @@ class Electre(method.DecisionMethod):
             matrix_E[idx] = data_e
 
         scores = []
-        for name in codes: 
+        for name in codes:
             i = 0
             items = matrix_E[name]
-            for v in items:                                
+            for v in items:
                 i += v
-                
+
             matrix_E[name].append(i)
             scores.append(i)
-                        
-        ranks = self.rank(scores)        
-        for i, name in enumerate(codes):             
-            matrix_E[name].append(ranks[i])            
-        
+
+        ranks = self.rank(scores)
+        for i, name in enumerate(codes):
+            matrix_E[name].append(ranks[i])
+
         return {
             "matrix_F": matrix_F,
             "matrix_G": matrix_G,
@@ -155,7 +154,6 @@ class Electre(method.DecisionMethod):
                 if table_d == 0:
                     table_dij.append(0)
                 else:
-
                     if len(table_d) == 0:
                         table_dij.append(0)
                     else:

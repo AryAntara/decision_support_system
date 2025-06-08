@@ -1,7 +1,5 @@
 from models import model 
 from models import criteria as ctr
-import pandas as pd
-
 
 class AlternativeModel(model.Model): 
     data: dict[any] = {}

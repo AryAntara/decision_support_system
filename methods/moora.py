@@ -1,6 +1,5 @@
 from methods import method
 from models import alternative as altr, criteria as ctr
-import pandas as pd, tabulate
 import math
 
 

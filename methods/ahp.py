@@ -1,5 +1,4 @@
 from methods import method
-import pandas as pd, tabulate
 from models import criteria as ctr
 import copy
 
@@ -144,11 +143,11 @@ class AHP(method.DecisionMethod):
     def _normalize(self, table: dict) -> dict:
         names = self.criteria.get_names()
         for name in names:
-            table_name = table[name]
-            total = table_name[-1]
-            for i in range(len(table_name) - 1):
-                weight = table_name[i]
-                table_name[i] = weight / total
+            table_item = table[name]
+            total = table_item[-1]
+            for i in range(len(table_item) - 1):
+                weight = table_item[i]
+                table_item[i] = weight / total
             del table[name][-1]
         del table["Cat"][-1]
 
@@ -205,6 +204,6 @@ class AHP(method.DecisionMethod):
         cr.data["weight"] = ev.get("eigen")["Eigen_vector"]
         return cr
 
-
+# assign priority for a Criteria between other
 def priority(value: int, is_more_important: bool = True):
     return {"value": value, "is_more_important": is_more_important}

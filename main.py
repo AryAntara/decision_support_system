@@ -35,6 +35,7 @@ criteria = CriteriaModel(
         "weight": [0, 0, 0, 0, 0, 0, 0, 0],
     }
 )
+
 ahp_method = AHP(
     criteria,
     {
@@ -72,7 +73,7 @@ ahp_method = AHP(
         "C6": {"C7": priority(3, False), "C8": priority(5, False)},
         "C7": {"C8": priority(1)},
     },
-    {"silent": False},
+    {"silent": True},
 )
 criteria = ahp_method.to_criteria()
 alternatives = AlternativeModel(
@@ -101,8 +102,10 @@ alternatives = AlternativeModel(
     criteria=criteria,
 )
 
-moora_method = moora.Moora(alternatives, {"silent": False})
+moora_method = Moora(alternatives, {"silent": False})
 moora_method.evaluate()
 
-electre_method = electre.Electre(alternatives, {"silent": False})
+electre_method = Electre(alternatives, {"silent": True})
 electre_method.evaluate()
+
+

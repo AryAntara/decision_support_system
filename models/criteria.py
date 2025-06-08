@@ -1,5 +1,4 @@
 from models import model 
-import pandas as pd
 
 
 class CriteriaModel(model.Model): 
